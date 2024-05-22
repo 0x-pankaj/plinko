@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plinko</title>
+
+    <style>
+        canvas {
+            background-color: #000;
+        }
+        #add-ball {
+            position: absolute;
+            top:10px;
+            right: 10px;
+            background-color: aquamarine;
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+
+
+
+
+<body>
+    <canvas id="gameCanvas" width="800" height="800" ></canvas>
+    <div id="add-ball" >Add Ball</div>
+
+    <script>
+
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext('2d'); //createCircle, createRectangle , createTringle, createLine
+
+        const DECIMAL_MULTIPLIER = 10000;
+
+        const WIDTH = 800;
+        const HEIGHT = 800;
+        const ballRadius = 7;
+        const obstacleRAdius = 4;
+        const gravity = pad(0.2);
+        const horizontalFriction = 0.4;
+        const verticalFriction = 0.8;
+        
+        let ball = [];
+
+        const obstacles = [];
+        const sinks = [];
+
+        function pad(n) {
+            return n * DECIMAL_MULTIPLIER;
+        }
+
+        function unpad(n) {
+            return Math.floor(n / DECIMAL_MULTIPLIER)
+        }
+
+        //Create obstacles in a pyrmid shape
+        const rows = 16;
+        for (let row = 2; row< rows; row++) {
+            const numObstacles = row +1;
+            const y = 0 + row * 35;
+            const spacing = 36;
+            
+            for (let col= 0; col < numObstacles; col++) {
+                const x = WIDTH /2 - spacing * (row/2 -col);
+                obstacles.push({x: pad(x), y: pad(y), radius: obstacleRAdius});
+            }
+        }
+
+    </script>
+
+
+</body>
+</html>
